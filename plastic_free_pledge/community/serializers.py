@@ -4,4 +4,4 @@ from .models import Pledge
 class PledgeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pledge
-        fields = '__all__'
+        fields = ['id', 'user', 'description', 'image', 'date']
