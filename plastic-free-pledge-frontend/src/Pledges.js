@@ -30,7 +30,7 @@ function Pledges() {
                 if (response.status === 204) {  // A successful deletion returns status code 204 (No Content)
                     setPledges(pledges.filter(pledge => pledge.id !== id));
                 }
-                } catch (error) {
+            } catch (error) {
                 console.error("Error deleting pledge:", error);
             }
         } else {
@@ -41,8 +41,9 @@ function Pledges() {
 
     return (
         <div className="container mx-auto p-4 my-5">
-            <h1 className="text-2xl font-bold mb-4">My Pledges</h1>
-            {pledges.map(pledge => (
+            <h1 className="text-2xl font-bold mb-8 p-2 border-b-2 border-gray-500">My Pledges</h1>
+            {/* Reverse the pledges array only for rendering */}
+            {[...pledges].reverse().map(pledge => (
                 <div key={pledge.id} className="p-4 mb-4 bg-white rounded-lg shadow-md">
                     <p className="text-lg font-semibold">{pledge.description}</p>
                     {/* Display the image if it exists */}
