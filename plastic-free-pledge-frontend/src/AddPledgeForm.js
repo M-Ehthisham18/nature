@@ -7,7 +7,7 @@ const AddPledgeForm = () => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     try {
       const userId = 1; // Replace with the correct user ID if required
@@ -61,6 +61,7 @@ const AddPledgeForm = () => {
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])} // Handle file selection
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          required
         />
 
         <button

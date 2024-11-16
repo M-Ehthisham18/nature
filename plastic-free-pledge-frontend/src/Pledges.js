@@ -16,15 +16,17 @@ function Pledges() {
             {pledges.map(pledge => (
                 <div key={pledge.id} className="p-4 mb-4 bg-white rounded-lg shadow-md ">
                     <p className="text-lg font-semibold">{pledge.description}</p>
-                    <p className="text-sm text-gray-500">Date: {pledge.date}</p>
                     {/* Display the image if it exists */}
                     {pledge.image && (
                     <img
                     src={pledge.image}
                     alt="Pledge"
-                    className="w-full h-64 object-cover rounded-lg mb-4"
+                    width="400"
+                    height="350"
+                    className=" object-cover rounded-lg mb-4"
                     />
                 )}
+                    <p className="text-sm text-gray-500">Date: {pledge.date}</p>
                             </div>
                         ))}
         </div>
