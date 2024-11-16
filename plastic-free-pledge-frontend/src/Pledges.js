@@ -3,6 +3,8 @@ import axios from 'axios';
 
 function Pledges() {
     const [pledges, setPledges] = useState([]);
+    
+    // Function to format the date
     const formatDate = (date) => {
         const d = new Date(date);
         const year = d.getFullYear();
@@ -10,6 +12,7 @@ function Pledges() {
         const day = d.getDate().toString().padStart(2, '0');           // Add leading zero
         return `${day}-${month}-${year}`;
     };
+
     useEffect(() => {
         // Fetch the initial pledges data
         axios.get('http://127.0.0.1:8000/api/pledges/')
@@ -18,19 +21,21 @@ function Pledges() {
     }, []);
 
     const handleDelete = async (id) => {
-        // alert('clicked')
-        try {
-            const response = await axios.delete(`http://127.0.0.1:8000/api/pledges/${id}/`);
-            if (response.status === 200) {
-                setPledges(pledges.filter(pledge => pledge.id !== id));
-                alert("Pledge deleted successfully!");
+        // Confirm deletion with the user
+        const confirmDelete = window.confirm("Are you sure you want to delete this pledge?");
+        
+        if (confirmDelete) {
+            try {
+                const response = await axios.delete(`http://127.0.0.1:8000/api/pledges/${id}/`);
+                if (response.status === 204) {  // A successful deletion returns status code 204 (No Content)
+                    setPledges(pledges.filter(pledge => pledge.id !== id));
+                }
+                } catch (error) {
+                console.error("Error deleting pledge:", error);
             }
-        } catch (error) {
-            console.error("Error deleting pledge:", error);
-        }
-        finally{
-            window.location.reload(); 
-
+        } else {
+            // If the user cancels, do nothing
+            console.log("Delete operation cancelled");
         }
     };
 

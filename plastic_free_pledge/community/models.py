@@ -19,6 +19,8 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+import os
+from django.conf import settings
 
 class Pledge(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -28,3 +30,11 @@ class Pledge(models.Model):
 
     def __str__(self):
         return self.description
+    
+    def delete(self, *args, **kwargs):
+        # Delete the image from the file system
+        if self.image:
+            image_path = self.image.path
+            if os.path.exists(image_path):
+                os.remove(image_path)
+        super(Pledge, self).delete(*args, **kwargs)

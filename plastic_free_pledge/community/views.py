@@ -7,7 +7,9 @@ from django.http import JsonResponse
 class PledgeViewSet(ModelViewSet):
     queryset = Pledge.objects.all()  # Fetch all pledge records
     serializer_class = PledgeSerializer
-
+    def perform_destroy(self, instance):
+        # Ensure the image is deleted when pledge is deleted
+        instance.delete()
 
 def delete_pledge(request, id):
     try:
