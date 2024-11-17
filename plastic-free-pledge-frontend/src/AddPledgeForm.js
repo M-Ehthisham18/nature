@@ -5,6 +5,7 @@ const AddPledgeForm = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null); // Store file object
   const [message, setMessage] = useState("");
+  const [author, setAuthor] = useState("")
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -16,6 +17,7 @@ const AddPledgeForm = () => {
       // Append fields to the form data
       formData.append("user", userId);
       formData.append("description", description);
+      formData.append("author",author)
       if (image) formData.append("image", image);
 
       const response = await axios.post("http://127.0.0.1:8000/api/pledges/", formData, {
@@ -40,6 +42,15 @@ const AddPledgeForm = () => {
       <h2 className="text-2xl font-bold mb-4">Add a New Pledge</h2>
       {message && <p className="mb-4 text-green-500">{message}</p>}
       <form onSubmit={handleSubmit}>
+        <label htmlFor="author" className="block mb-2 text-gray-700 font-medium">Author</label>
+        <input 
+          type="text"
+          id="author"
+          value={author}
+          onChange={(e)=>setAuthor(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+
         <label htmlFor="description" className="block mb-2 text-gray-700 font-medium">
           Pledge Description:
         </label>
@@ -61,7 +72,7 @@ const AddPledgeForm = () => {
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])} // Handle file selection
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-          required
+          // required
         />
 
         <button

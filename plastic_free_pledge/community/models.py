@@ -27,6 +27,7 @@ class Pledge(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='pledge_images/', null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)  # Automatically set the date when created
+    author = models.CharField(max_length=225,default="author : __")
 
     def __str__(self):
         return self.description
